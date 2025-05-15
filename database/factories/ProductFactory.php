@@ -20,8 +20,13 @@ class ProductFactory extends Factory
             'name' => fake()->name(),
             'slug' => fake()->slug(),
             'description' => fake()->text(),
+            'large_description' => fake()->text(500),
             'price' => fake()->randomFloat(2, 10, 100),
-            'image' => fake()->image('public/storage', 400, 300),
+            'image' => fake()->randomElement([
+                '1.webp',
+                '2.webp',
+                '3.avif',
+            ]),
         ];
     }
 }

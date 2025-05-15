@@ -28,6 +28,8 @@ class ProductResource extends Resource
                     ->maxLength(255),
                 Forms\Components\MarkdownEditor::make('description')
                     ->required(),
+                Forms\Components\MarkdownEditor::make('large_description')
+                    ->required(),
                 Forms\Components\TextInput::make('price')
                     ->required()
                     ->maxLength(255),
@@ -44,14 +46,9 @@ class ProductResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('description')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('price')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('image')
-                    ->searchable(),
+                Tables\Columns\ImageColumn::make("image")
             ])
             ->filters([
                 //

@@ -47,6 +47,7 @@ export interface Product {
     name: string;
     slug: string;
     description: string;
+    large_description: string;
     price: number;
     image: string;
     created_at: string;

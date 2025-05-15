@@ -15,6 +15,7 @@ class Product extends Model
         'name',
         'slug',
         'description',
+        'large_description',
         'price',
         'image',
     ];
@@ -22,5 +23,10 @@ class Product extends Model
     public function getSlugAttribute($value)
     {
         return Str::slug($value);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }
