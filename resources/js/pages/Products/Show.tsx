@@ -1,6 +1,7 @@
 import Header from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import useCart from '@/hooks/use-cart';
 import { cn } from '@/lib/utils';
 import { Product } from '@/types';
 import { Head } from '@inertiajs/react';
@@ -9,6 +10,12 @@ import Markdown from 'react-markdown';
 
 const Show = ({ product }: { product: Product }) => {
     const [quantity, setQuantity] = useState(1);
+
+    const { addToCart } = useCart();
+
+    const handleAddToCart = () => {
+        addToCart({ ...product, quantity });
+    };
 
     return (
         <>
@@ -56,7 +63,9 @@ const Show = ({ product }: { product: Product }) => {
                                         +
                                     </button>
                                 </div>
-                                <Button className="w-full font-bold">Añadir al carrito</Button>
+                                <Button className="w-full font-bold" onClick={handleAddToCart}>
+                                    Añadir al carrito
+                                </Button>
                             </div>
 
                             <div className="prose prose-h1:text-4xl prose-h1:font-bold prose-h2:text-2xl prose-h3:text-xl mt-4 sm:mt-auto">

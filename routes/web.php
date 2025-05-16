@@ -6,13 +6,17 @@ use Inertia\Inertia;
 
 Route::get('/', [ProductController::class, 'index'])->name('home');
 
+Route::get('cart', function () {
+    return Inertia::render('cart');
+})->name('cart');
+
+Route::resource('products', ProductController::class);
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 });
-
-Route::resource('products', ProductController::class);
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';

@@ -54,3 +54,7 @@ export interface Product {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface CartProduct extends Product {
+    quantity: number;
+}

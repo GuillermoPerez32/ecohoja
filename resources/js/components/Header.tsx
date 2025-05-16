@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { ShoppingCart } from 'lucide-react';
+import CartButton from './cart-button';
 
 const Header = () => {
     return (
@@ -10,7 +10,7 @@ const Header = () => {
             </Link>
 
             <div className="ml-auto flex items-center gap-2">
-                <ShoppingCart className="size-6 cursor-pointer" />
+                <CartButton />
             </div>
         </header>
     );

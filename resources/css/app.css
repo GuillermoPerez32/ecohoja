@@ -174,3 +174,7 @@
         @apply text-xl;
     }
 }
+
+button {
+    cursor: pointer;
+}
