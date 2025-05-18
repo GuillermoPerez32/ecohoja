@@ -74,7 +74,7 @@ const Show = ({ product }: { product: Product }) => {
                         </div>
                     </div>
                     <div className="p-4">
-                        <h2 className="text-2xl font-semibold">Especificaciones/Instrucciones</h2>
+                        <h2 className="text-2xl font-semibold">Especificaciones / Instrucciones</h2>
                         <div className="prose prose-h1:text-4xl prose-h1:font-bold prose-h2:text-2xl prose-h3:text-xl">
                             <Markdown>{product.large_description}</Markdown>
                         </div>

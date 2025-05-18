@@ -1,4 +1,5 @@
 import Header from '@/components/Header';
+import SupportButton from '@/components/support-button';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Card, CardContent } from '@/components/ui/card';
 import { Product } from '@/types';
@@ -9,12 +10,13 @@ const Index = ({ products }: { products: Product[] }) => {
         <>
             <Head title="Productos" />
             <Header />
+            <SupportButton />
             <div className="grid grid-cols-2 space-y-4 space-x-4 p-4 lg:grid-cols-4">
                 {products.map((product) => (
                     <Link href={route('products.show', product.slug)} key={product.id}>
                         <Card className="group overflow-hidden py-0 transition-all duration-300 hover:shadow-md">
                             <AspectRatio ratio={1 / 1} className="bg-muted overflow-hidden">
-                                <div className="w-full">
+                                <div className="h-[200px] w-full">
                                     <img
                                         src={`/storage/${product.image}`}
                                         alt={product.name}

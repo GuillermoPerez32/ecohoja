@@ -1,0 +1,37 @@
+name: Actualizar en VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v2
+
+      - name: Conectar al VPS y actualizar
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          script: |
+            cd /var/www/ecohoja
+            git checkout -- .
+            git pull
+
+            COMPOSER_ALLOW_SUPERUSER=1 composer install --optimize-autoloader --no-dev
+
+            pnpm i
+            pnpm build
+
+            php artisan migrate
+
+            php artisan optimize
+
+            service php8.3-fpm restart
+            sudo service nginx restart
