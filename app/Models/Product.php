@@ -20,6 +20,10 @@ class Product extends Model
         'image',
     ];
 
+    protected $casts = [
+        'price' => 'float',
+    ];
+
     public function getSlugAttribute($value)
     {
         return Str::slug($value);
