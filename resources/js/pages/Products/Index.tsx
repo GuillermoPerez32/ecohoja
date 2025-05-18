@@ -4,6 +4,7 @@ import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Card, CardContent } from '@/components/ui/card';
 import { Product } from '@/types';
 import { Head, Link } from '@inertiajs/react';
+import Markdown from 'react-markdown';
 
 const Index = ({ products }: { products: Product[] }) => {
     return (
@@ -26,7 +27,9 @@ const Index = ({ products }: { products: Product[] }) => {
                             </AspectRatio>
                             <CardContent className="px-2 pb-6">
                                 <h3 className="line-clamp-2 text-lg font-semibold">{product.name}</h3>
-                                <p className="text-muted-foreground line-clamp-2 text-sm">{product.description}</p>
+                                <p className="text-muted-foreground line-clamp-2 text-sm">
+                                    <Markdown>{product.description}</Markdown>
+                                </p>
                                 <div className="text-accent-foreground mt-1 text-lg font-semibold">${product.price.toFixed(2)}</div>
                             </CardContent>
                         </Card>

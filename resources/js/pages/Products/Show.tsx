@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import useCart from '@/hooks/use-cart';
 import { cn } from '@/lib/utils';
 import { Product } from '@/types';
-import { Head } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';
 import Markdown from 'react-markdown';
 
@@ -15,6 +15,7 @@ const Show = ({ product }: { product: Product }) => {
 
     const handleAddToCart = () => {
         addToCart({ ...product, quantity });
+        router.visit(route('cart'));
     };
 
     return (
