@@ -31,6 +31,7 @@ const Index = ({ products }: { products: Product[] }) => {
                         </Card>
                     </Link>
                 ))}
+                <div className="hidden" />
             </div>
         </AppLayout>
     );
