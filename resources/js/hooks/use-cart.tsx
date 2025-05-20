@@ -8,6 +8,7 @@ interface CartState {
     removeFromCart: (id: number) => void;
     decreaseQuantity: (id: number, quantity: number) => void;
     increaseQuantity: (id: number, quantity: number) => void;
+    clearCart: () => void;
 }
 
 const useCart = create<CartState>()(
@@ -41,6 +42,7 @@ const useCart = create<CartState>()(
                     });
                 }
             },
+            clearCart: () => set({ cart: [] }),
         }),
         {
             name: 'cart-storage',

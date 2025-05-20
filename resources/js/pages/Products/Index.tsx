@@ -1,18 +1,14 @@
-import Header from '@/components/Header';
-import SupportButton from '@/components/support-button';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Card, CardContent } from '@/components/ui/card';
+import AppLayout from '@/layouts/app-layout';
 import { Product } from '@/types';
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import Markdown from 'react-markdown';
 
 const Index = ({ products }: { products: Product[] }) => {
     return (
-        <>
-            <Head title="Productos" />
-            <Header />
-            <SupportButton />
-            <div className="grid grid-cols-2 space-y-4 space-x-4 p-4 lg:grid-cols-4">
+        <AppLayout>
+            <div className="grid grid-cols-2 space-y-4 space-x-4 p-4 pb-20 lg:grid-cols-4">
                 {products.map((product) => (
                     <Link href={route('products.show', product.slug)} key={product.id}>
                         <Card className="group overflow-hidden py-0 transition-all duration-300 hover:shadow-md">
@@ -36,7 +32,7 @@ const Index = ({ products }: { products: Product[] }) => {
                     </Link>
                 ))}
             </div>
-        </>
+        </AppLayout>
     );
 };
 

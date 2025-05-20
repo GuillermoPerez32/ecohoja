@@ -1,14 +1,18 @@
-import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
-import { type BreadcrumbItem } from '@/types';
+import Header from '@/components/Header';
+import SupportButton from '@/components/support-button';
+import { Head } from '@inertiajs/react';
 import { type ReactNode } from 'react';
 
 interface AppLayoutProps {
+    title?: string;
     children: ReactNode;
-    breadcrumbs?: BreadcrumbItem[];
 }
 
-export default ({ children, breadcrumbs, ...props }: AppLayoutProps) => (
-    <AppLayoutTemplate breadcrumbs={breadcrumbs} {...props}>
+export default ({ children, title }: AppLayoutProps) => (
+    <>
+        <Head title={title || 'Ecohoja'} />
+        <Header />
+        <SupportButton />
         {children}
-    </AppLayoutTemplate>
+    </>
 );
