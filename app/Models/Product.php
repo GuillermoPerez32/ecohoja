@@ -33,4 +33,9 @@ class Product extends Model
     {
         return 'slug';
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class)->withPivot('price', 'quantity');
+    }
 }

@@ -7,6 +7,7 @@ import { Product } from '@/types';
 import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';
 import Markdown from 'react-markdown';
+import { toast } from 'sonner';
 
 const Show = ({ product }: { product: Product }) => {
     const [quantity, setQuantity] = useState(1);
@@ -15,6 +16,7 @@ const Show = ({ product }: { product: Product }) => {
 
     const handleAddToCart = () => {
         addToCart({ ...product, quantity });
+        toast.success('Producto añadido al carrito');
         router.visit(route('home'));
     };
 

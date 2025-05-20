@@ -7,11 +7,13 @@ use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Order;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Collection;
 
 class OrderResource extends Resource
 {
@@ -30,15 +32,7 @@ class OrderResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('address')
                     ->required(),
-                Forms\Components\Repeater::make('products')
-                    ->schema([
-                        Forms\Components\TextInput::make('name')
-                            ->required(),
-                        Forms\Components\TextInput::make('price')
-                            ->required(),
-                        Forms\Components\TextInput::make('quantity')
-                            ->required(),
-                    ]),
+
             ]);
     }
 
@@ -48,32 +42,69 @@ class OrderResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('phone')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('address')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->searchable()
+                    ->sortable()
+                    ->label('Status')
+                    ->formatStateUsing(fn($state) => ucfirst($state)),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime(),
+                Tables\Columns\TextColumn::make('total_price')
+                    ->label('Total Price')
+                    ->formatStateUsing(fn($state) => number_format($state, 2)),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'completed' => 'Completed',
+                        'cancelled' => 'Cancelled',
+                    ])
+                    ->default('pending'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\BulkAction::make('Mark as completed')
+                    ->action(function (Collection $records) {
+                        $records->each(function (Order $record) {
+                            $record->update([
+                                'status' => 'completed',
+                            ]);
+                        });
+                    })
+                    ->icon('heroicon-o-check-circle')
+                    ->color('success')
+                    ->requiresConfirmation()
+                    ->modalHeading('Mark orders as completed')
+                    ->modalDescription('Are you sure you want to mark these orders as completed?')
+                    ->modalSubmitActionLabel('Mark as completed'),
+                Tables\Actions\BulkAction::make('Mark as cancelled')
+                    ->action(function (Collection $records) {
+                        $records->each(function (Order $record) {
+                            $record->update([
+                                'status' => 'cancelled',
+                            ]);
+                        });
+                    })
+                    ->icon('heroicon-o-x-circle')
+                    ->color('warning')
+                    ->requiresConfirmation()
+                    ->modalHeading('Mark orders as cancelled')
+                    ->modalDescription('Are you sure you want to mark these orders as cancelled?')
+                    ->modalSubmitActionLabel('Mark as cancelled'),
+                Tables\Actions\DeleteBulkAction::make(),
+
             ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\ProductsRelationManager::class,
         ];
     }
 
