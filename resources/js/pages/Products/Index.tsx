@@ -15,7 +15,6 @@ const Index = ({ products }: { products: Product[] }) => {
                             <AspectRatio ratio={1 / 1} className="bg-muted overflow-hidden">
                                 <div className="h-[200px] w-full">
                                     <img
-                                        loading="lazy"
                                         src={`/storage/${product.image}`}
                                         alt={product.name}
                                         className="w-full object-cover transition-transform duration-300 group-hover:scale-105"
